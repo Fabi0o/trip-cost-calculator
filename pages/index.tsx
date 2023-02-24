@@ -8,6 +8,7 @@ export default function Home() {
   const router = useRouter();
   const { geoLocTo, setGeoLocTo, geoLocFrom, setGeoLocFrom } =
     useContext(Context);
+
   let adressTo: Adress;
   let adressFrom: Adress;
 
@@ -26,6 +27,7 @@ export default function Home() {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
     const target = event.target as HTMLFormElement;
 
     adressTo = {

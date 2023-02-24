@@ -4,24 +4,60 @@ import styles from "../styles/Map.module.css";
 const Map = () => {
   const { geoLocTo, setGeoLocTo, geoLocFrom, setGeoLocFrom } =
     useContext(Context);
-  const mapElement: any = useRef();
-  const [map, setMap] = useState({});
+
+  const mapElement = useRef<HTMLDivElement>(null);
+  const [map, setMap] = useState<tt.Map>();
+
   useEffect(() => {
     const mapLogic = async () => {
-      mapElement.innerHTML = "";
       const tt = await import("@tomtom-international/web-sdk-maps");
+
       let map = tt.map({
         key: process.env.API_CEY!,
-        container: mapElement.current,
-        center: [Number(geoLocTo[0]), Number(geoLocTo[1])],
+        container: mapElement.current!,
+        center: geoLocFrom,
         zoom: 9,
       });
-      new tt.Marker().setLngLat([geoLocTo[0], geoLocTo[1]]).addTo(map);
-      new tt.Marker().setLngLat([geoLocFrom[0], geoLocFrom[1]]).addTo(map);
       setMap(map);
+
+      new tt.Marker().setLngLat(geoLocTo).addTo(map);
+      new tt.Marker().setLngLat(geoLocFrom).addTo(map);
+      map.on("load", () => {
+        drawRoute(map);
+      });
     };
+
+    const drawRoute = async (map: tt.Map) => {
+      const ttt = await import("@tomtom-international/web-sdk-services");
+
+      let geoJson;
+
+      await ttt.services
+        .calculateRoute({
+          key: process.env.API_CEY!,
+          locations: `${geoLocFrom}:${geoLocTo}`,
+        })
+        .then((res) => {
+          geoJson = res.toGeoJson();
+        });
+
+      map.addLayer({
+        id: "route",
+        type: "line",
+        source: {
+          type: "geojson",
+          data: geoJson,
+        },
+        paint: {
+          "line-color": "red",
+          "line-width": 6,
+        },
+      });
+    };
+
     mapLogic();
-  }, []);
+  }, [geoLocTo, geoLocFrom]);
+
   return (
     <>
       <div ref={mapElement} className={styles.map_container}></div>
