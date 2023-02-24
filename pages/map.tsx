@@ -2,7 +2,7 @@ import { Context } from "@/context/adresses";
 import { useContext, useEffect, useRef, useState } from "react";
 import styles from "../styles/Map.module.css";
 const Map = () => {
-  const { adressTo, setAdressTo, adressFrom, setAdressFrom } =
+  const { geoLocTo, setGeoLocTo, geoLocFrom, setGeoLocFrom } =
     useContext(Context);
   const mapElement: any = useRef();
   const [map, setMap] = useState({});
@@ -13,10 +13,11 @@ const Map = () => {
       let map = tt.map({
         key: process.env.API_CEY!,
         container: mapElement.current,
-        center: [-0.112, 51.504],
+        center: [Number(geoLocTo[0]), Number(geoLocTo[1])],
         zoom: 9,
       });
-      new tt.Marker().setLngLat([-0.112, 51.504]).addTo(map);
+      new tt.Marker().setLngLat([geoLocTo[0], geoLocTo[1]]).addTo(map);
+      new tt.Marker().setLngLat([geoLocFrom[0], geoLocFrom[1]]).addTo(map);
       setMap(map);
     };
     mapLogic();

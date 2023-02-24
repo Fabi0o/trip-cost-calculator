@@ -2,35 +2,59 @@ import { Context } from "@/context/adresses";
 import styles from "@/styles/Home.module.css";
 import { useRouter } from "next/router";
 import { useContext } from "react";
+import Adress from "../types/adress";
 
 export default function Home() {
   const router = useRouter();
-  const { adressTo, setAdressTo, adressFrom, setAdressFrom } =
+  const { geoLocTo, setGeoLocTo, geoLocFrom, setGeoLocFrom } =
     useContext(Context);
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  let adressTo: Adress;
+  let adressFrom: Adress;
+
+  const fetchGeoLoc = (adress: Adress) => {
+    return fetch(
+      `https://api.tomtom.com/search/2/geocode/${adress.streetAdress} ${adress.streetNumber}, ${adress.city}.json?key=${process.env.API_CEY}`
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        return Object.values(data.results[0].position).reverse();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const target = event.target as HTMLFormElement;
-    setAdressTo({
+
+    adressTo = {
       city: (target.querySelector("#city-to")! as HTMLInputElement).value,
       streetAdress: (target.querySelector("#street-to")! as HTMLInputElement)
         .value,
-      streetNumber: (
-        target.querySelector("#street-number-to")! as HTMLInputElement
-      ).value,
+      streetNumber: Number(
+        (target.querySelector("#street-number-to")! as HTMLInputElement).value
+      ),
       country: (target.querySelector("#country-to")! as HTMLInputElement).value,
-    });
-    setAdressFrom({
+    };
+
+    adressFrom = {
       city: (target.querySelector("#city-from")! as HTMLInputElement).value,
       streetAdress: (target.querySelector("#street-from")! as HTMLInputElement)
         .value,
-      streetNumber: (
-        target.querySelector("#street-number-from")! as HTMLInputElement
-      ).value,
+      streetNumber: Number(
+        (target.querySelector("#street-number-from")! as HTMLInputElement).value
+      ),
       country: (target.querySelector("#country-from")! as HTMLInputElement)
         .value,
-    });
+    };
+
+    setGeoLocTo(await fetchGeoLoc(adressTo));
+    setGeoLocFrom(await fetchGeoLoc(adressFrom));
+
     router.push("/map");
   };
+
   return (
     <form onSubmit={handleSubmit}>
       <fieldset>
