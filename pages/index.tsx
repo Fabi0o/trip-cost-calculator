@@ -53,7 +53,7 @@ export default function Home() {
     setGeoLocTo(await fetchGeoLoc(adressTo));
     setGeoLocFrom(await fetchGeoLoc(adressFrom));
 
-    router.push("/map");
+    router.push("/trip");
   };
 
   return (

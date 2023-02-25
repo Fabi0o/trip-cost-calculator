@@ -2,7 +2,7 @@ import { Context } from "@/context/adresses";
 import { useContext, useEffect, useRef, useState } from "react";
 import styles from "../styles/Map.module.css";
 const Map = () => {
-  const { geoLocTo, geoLocFrom } = useContext(Context);
+  const { geoLocTo, geoLocFrom, setGeoJson } = useContext(Context);
 
   const mapElement = useRef<HTMLDivElement>(null);
   const [map, setMap] = useState<tt.Map>();
@@ -29,29 +29,27 @@ const Map = () => {
     const drawRoute = async (map: tt.Map) => {
       const ttt = await import("@tomtom-international/web-sdk-services");
 
-      let geoJson;
-
       await ttt.services
         .calculateRoute({
           key: process.env.API_CEY!,
           locations: `${geoLocFrom}:${geoLocTo}`,
         })
         .then((res) => {
-          geoJson = res.toGeoJson();
-        });
+          setGeoJson(res.toGeoJson());
 
-      map.addLayer({
-        id: "route",
-        type: "line",
-        source: {
-          type: "geojson",
-          data: geoJson,
-        },
-        paint: {
-          "line-color": "red",
-          "line-width": 6,
-        },
-      });
+          map.addLayer({
+            id: "route",
+            type: "line",
+            source: {
+              type: "geojson",
+              data: res.toGeoJson(),
+            },
+            paint: {
+              "line-color": "red",
+              "line-width": 3,
+            },
+          });
+        });
     };
 
     mapLogic();
