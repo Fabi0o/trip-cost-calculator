@@ -2,8 +2,7 @@ import { Context } from "@/context/adresses";
 import { useContext, useEffect, useRef, useState } from "react";
 import styles from "../styles/Map.module.css";
 const Map = () => {
-  const { geoLocTo, setGeoLocTo, geoLocFrom, setGeoLocFrom } =
-    useContext(Context);
+  const { geoLocTo, geoLocFrom } = useContext(Context);
 
   const mapElement = useRef<HTMLDivElement>(null);
   const [map, setMap] = useState<tt.Map>();

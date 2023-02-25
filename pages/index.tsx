@@ -6,8 +6,7 @@ import Adress from "../types/adress";
 
 export default function Home() {
   const router = useRouter();
-  const { geoLocTo, setGeoLocTo, geoLocFrom, setGeoLocFrom } =
-    useContext(Context);
+  const { setGeoLocTo, setGeoLocFrom } = useContext(Context);
 
   let adressTo: Adress;
   let adressFrom: Adress;
