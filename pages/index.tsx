@@ -1,15 +1,31 @@
 import { Context } from "@/context/adresses";
 import styles from "@/styles/Home.module.css";
 import { useRouter } from "next/router";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import Adress from "../types/adress";
 
 export default function Home() {
   const router = useRouter();
-  const { setGeoLocTo, setGeoLocFrom } = useContext(Context);
+  const {
+    geoLocTo,
+    setGeoLocTo,
+    geoLocFrom,
+    setGeoLocFrom,
+    adressTo,
+    setAdressTo,
+    adressFrom,
+    setAdressFrom,
+  } = useContext(Context);
 
-  let adressTo: Adress;
-  let adressFrom: Adress;
+  const [cityFrom, setCityFrom] = useState("");
+  const [streetFrom, setStreetFrom] = useState("");
+  const [streetNumberFrom, setStreetNumberFrom] = useState("");
+  const [countryFrom, setCountryFrom] = useState("");
+
+  const [cityTo, setCityTo] = useState("");
+  const [streetTo, setStreetTo] = useState("");
+  const [streetNumberTo, setStreetNumberTo] = useState("");
+  const [countryTo, setCountryTo] = useState("");
 
   const fetchGeoLoc = (adress: Adress) => {
     return fetch(
@@ -19,66 +35,111 @@ export default function Home() {
       .then((data) => {
         return Object.values(data.results[0].position).reverse();
       })
-      .catch((err) => {
-        console.log(err);
+      .catch(() => {
+        alert(`Wrong Adress of city:${adress.city}!`);
       });
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const target = event.target as HTMLFormElement;
+    setAdressTo({
+      city: cityTo,
+      streetAdress: streetTo,
+      streetNumber: Number(streetNumberTo),
+      country: countryTo,
+    });
 
-    adressTo = {
-      city: (target.querySelector("#city-to")! as HTMLInputElement).value,
-      streetAdress: (target.querySelector("#street-to")! as HTMLInputElement)
-        .value,
-      streetNumber: Number(
-        (target.querySelector("#street-number-to")! as HTMLInputElement).value
-      ),
-      country: (target.querySelector("#country-to")! as HTMLInputElement).value,
-    };
-
-    adressFrom = {
-      city: (target.querySelector("#city-from")! as HTMLInputElement).value,
-      streetAdress: (target.querySelector("#street-from")! as HTMLInputElement)
-        .value,
-      streetNumber: Number(
-        (target.querySelector("#street-number-from")! as HTMLInputElement).value
-      ),
-      country: (target.querySelector("#country-from")! as HTMLInputElement)
-        .value,
-    };
-
-    setGeoLocTo(await fetchGeoLoc(adressTo));
-    setGeoLocFrom(await fetchGeoLoc(adressFrom));
-
-    router.push("/trip");
+    setAdressFrom({
+      city: cityFrom,
+      streetAdress: streetFrom,
+      streetNumber: Number(streetNumberFrom),
+      country: countryFrom,
+    });
   };
+
+  useEffect(() => {
+    if (adressTo) {
+      const setGeo = async () => {
+        setGeoLocTo(await fetchGeoLoc(adressTo));
+      };
+      setGeo();
+    }
+    if (adressFrom) {
+      const setGeo = async () => {
+        setGeoLocFrom(await fetchGeoLoc(adressFrom));
+      };
+      setGeo();
+    }
+  }, [adressTo, adressFrom]);
+
+  useEffect(() => {
+    if (geoLocTo && geoLocFrom) {
+      router.push("/trip");
+    }
+  }, [geoLocFrom, geoLocTo]);
 
   return (
     <form onSubmit={handleSubmit}>
       <fieldset>
         <legend>From</legend>
         <label htmlFor="city-from">City</label>
-        <input type="text" id="city-from" required />
+        <input
+          type="text"
+          id="city-from"
+          required
+          onChange={(e) => setCityFrom(e.target.value)}
+        />
         <label htmlFor="street-from">Street name</label>
-        <input type="text" id="street-from" required />
+        <input
+          type="text"
+          id="street-from"
+          required
+          onChange={(e) => setStreetFrom(e.target.value)}
+        />
         <label htmlFor="street-number-from">Street number</label>
-        <input type="number" id="street-number-from" />
+        <input
+          type="number"
+          id="street-number-from"
+          onChange={(e) => setStreetNumberFrom(e.target.value)}
+        />
         <label htmlFor="country-from">Country</label>
-        <input type="text" id="country-from" required />
+        <input
+          type="text"
+          id="country-from"
+          required
+          onChange={(e) => setCountryFrom(e.target.value)}
+        />
       </fieldset>
       <fieldset>
         <legend>To</legend>
         <label htmlFor="city-to">City</label>
-        <input type="text" id="city-to" required />
+        <input
+          type="text"
+          id="city-to"
+          required
+          onChange={(e) => setCityTo(e.target.value)}
+        />
         <label htmlFor="street-to">Street name</label>
-        <input type="text" id="street-to" required />
+        <input
+          type="text"
+          id="street-to"
+          required
+          onChange={(e) => setStreetTo(e.target.value)}
+        />
         <label htmlFor="street-number-to">Street number</label>
-        <input type="number" id="street-number-to" />
+        <input
+          type="number"
+          id="street-number-to"
+          onChange={(e) => setStreetNumberTo(e.target.value)}
+        />
         <label htmlFor="country-to">Country</label>
-        <input type="text" id="country-to" required />
+        <input
+          type="text"
+          id="country-to"
+          required
+          onChange={(e) => setCountryTo(e.target.value)}
+        />
       </fieldset>
       <button>Calculate trip cost</button>
     </form>

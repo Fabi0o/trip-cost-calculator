@@ -1,4 +1,5 @@
 import { createContext, useState } from "react";
+import Adress from "@/types/adress";
 
 export const Context = createContext<any>(null);
 
@@ -6,6 +7,8 @@ export function AdressesProvider({ children }: any) {
   const [geoLocTo, setGeoLocTo] = useState("");
   const [geoLocFrom, setGeoLocFrom] = useState("");
   const [geoJson, setGeoJson] = useState();
+  const [adressTo, setAdressTo] = useState<Adress>();
+  const [adressFrom, setAdressFrom] = useState<Adress>();
   return (
     <Context.Provider
       value={{
@@ -15,6 +18,10 @@ export function AdressesProvider({ children }: any) {
         setGeoLocFrom,
         geoJson,
         setGeoJson,
+        adressTo,
+        setAdressTo,
+        adressFrom,
+        setAdressFrom,
       }}
     >
       {children}
