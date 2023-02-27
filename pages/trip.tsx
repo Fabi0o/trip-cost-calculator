@@ -1,8 +1,13 @@
 import { Context } from "@/context/adresses";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useRef } from "react";
 import { useRouter } from "next/router";
-import Map from "@/components/map";
+import dynamic from "next/dynamic";
+import Map from "@/components/Map";
 import TripDetails from "@/components/TripDetails";
+
+const GeneratePDF = dynamic(() => import("../components/GeneratePDF"), {
+  ssr: false,
+});
 const Trip = () => {
   const {
     geoJson,
@@ -18,6 +23,8 @@ const Trip = () => {
     tripHistory,
     setTripHistory,
   } = useContext(Context);
+
+  const ref = useRef(null);
 
   useEffect(() => {
     if (!geoLocFrom && !geoLocTo) router.push("/");
@@ -40,9 +47,11 @@ const Trip = () => {
 
   return (
     <>
-      {geoJson && <TripDetails />}
+      <div ref={ref}>{geoJson && <TripDetails />}</div>
       {geoLocFrom && <Map />}
       <button onClick={goToHome}>Back to homepage!</button>
+
+      <GeneratePDF html={ref} />
     </>
   );
 };
