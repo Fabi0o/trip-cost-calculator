@@ -24,11 +24,15 @@ const TripDetails = () => {
     <>
       <div>
         From:{" "}
-        {`${adressFrom.city}, ${adressFrom.streetAdress} ${adressFrom.streetNumber}, ${adressFrom.country}`}
+        {`${adressFrom.city}, ${adressFrom.streetAdress}${
+          adressFrom.streetNumber ? ` ${adressFrom.streetNumber}` : ""
+        }, ${adressFrom.country}`}
       </div>
       <div>
         To:{" "}
-        {`${adressTo.city}, ${adressTo.streetAdress} ${adressTo.streetNumber}, ${adressTo.country}`}
+        {`${adressTo.city}, ${adressTo.streetAdress}${
+          adressTo.streetNumber ? ` ${adressTo.streetNumber}` : ""
+        }, ${adressTo.country}`}
       </div>
       <div>Trip length: {tripLength} km</div>
       <form>
@@ -37,7 +41,7 @@ const TripDetails = () => {
           type="number"
           value={costOfkm}
           onChange={(e) => {
-            if (e.target.value[0] == "0")
+            if (Number(e.target.value[0]) == 0 || e.target.value[0] == "-")
               e.target.value = e.target.value.slice(1);
             setCostOfkm(Number(e.target.value));
           }}

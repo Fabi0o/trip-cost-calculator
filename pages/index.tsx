@@ -46,14 +46,14 @@ export default function Home() {
     setAdressTo({
       city: cityTo,
       streetAdress: streetTo,
-      streetNumber: Number(streetNumberTo),
+      streetNumber: streetNumberTo,
       country: countryTo,
     });
 
     setAdressFrom({
       city: cityFrom,
       streetAdress: streetFrom,
-      streetNumber: Number(streetNumberFrom),
+      streetNumber: streetNumberFrom,
       country: countryFrom,
     });
   };
@@ -65,6 +65,7 @@ export default function Home() {
       };
       setGeo();
     }
+
     if (adressFrom) {
       const setGeo = async () => {
         setGeoLocFrom(await fetchGeoLoc(adressFrom));
