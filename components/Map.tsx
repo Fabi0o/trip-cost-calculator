@@ -53,7 +53,7 @@ const Map = () => {
     };
 
     mapLogic();
-  }, [geoLocTo, geoLocFrom]);
+  }, []);
 
   return (
     <>

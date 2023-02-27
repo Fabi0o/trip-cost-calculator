@@ -9,6 +9,8 @@ export function AdressesProvider({ children }: any) {
   const [geoJson, setGeoJson] = useState();
   const [adressTo, setAdressTo] = useState<Adress>();
   const [adressFrom, setAdressFrom] = useState<Adress>();
+  const [tripHistory, setTripHistory] = useState([]);
+
   return (
     <Context.Provider
       value={{
@@ -22,6 +24,8 @@ export function AdressesProvider({ children }: any) {
         setAdressTo,
         adressFrom,
         setAdressFrom,
+        tripHistory,
+        setTripHistory,
       }}
     >
       {children}
