@@ -1,6 +1,6 @@
 # Trip-cost-calculator
 
-App done using Next.js with TypeScript and TomTom Map API. [Live Preview!](trip-cost-calculator.vercel.app)
+App done using Next.js with TypeScript and TomTom Map API. [Live Preview!](https://trip-cost-calculator.vercel.app/)
 
 ### App Functionality
 
