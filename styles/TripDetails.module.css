@@ -1,0 +1,17 @@
+.heading {
+  margin: 0;
+}
+.input {
+  width: 2rem;
+}
+.input::-webkit-outer-spin-button,
+.input::-webkit-inner-spin-button {
+  margin: 0;
+  -webkit-appearance: none;
+}
+.adress_container {
+  margin-bottom: 1rem;
+}
+.container {
+  margin-bottom: 1rem;
+}

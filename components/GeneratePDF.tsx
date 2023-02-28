@@ -1,9 +1,10 @@
-import { jsPDF, HTMLOptionImage } from "jspdf";
-import { toPng, toCanvas } from "html-to-image";
+import { jsPDF } from "jspdf";
+import { toPng } from "html-to-image";
 type props = {
   html?: React.MutableRefObject<HTMLDivElement>;
+  className: string;
 };
-const GeneratePDF: React.FC<props> = ({ html }) => {
+const GeneratePDF: React.FC<props> = ({ html, className }) => {
   const generateImage = async () => {
     const image = await toPng(html!.current, { quality: 0.95 });
     const doc = new jsPDF();
@@ -14,7 +15,9 @@ const GeneratePDF: React.FC<props> = ({ html }) => {
   return (
     <>
       {" "}
-      <button onClick={generateImage}>Get PDF!</button>{" "}
+      <button onClick={generateImage} className={className}>
+        Get PDF!
+      </button>{" "}
     </>
   );
 };
