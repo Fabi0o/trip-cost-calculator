@@ -1,0 +1,42 @@
+.container {
+  display: flex;
+  gap: 1rem;
+}
+
+.fieldset {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+}
+
+.form_cell {
+  display: flex;
+  flex-direction: column;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.form_button {
+  border: 1px solid white;
+  border-radius: 15px;
+  background-color: var(--primary);
+  color: white;
+  cursor: pointer;
+  padding: 0.5rem;
+}
+
+.form_button:hover {
+  color: var(--primary);
+  background-color: white;
+  border: 1px solid var(--primary);
+}
+
+.form_legend {
+  font-weight: bold;
+}

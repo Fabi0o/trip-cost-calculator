@@ -85,68 +85,86 @@ export default function Home() {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
-        <fieldset>
-          <legend>From</legend>
-          <label htmlFor="city-from">City</label>
-          <input
-            type="text"
-            id="city-from"
-            required
-            onChange={(e) => setCityFrom(e.target.value)}
-          />
-          <label htmlFor="street-from">Street name</label>
-          <input
-            type="text"
-            id="street-from"
-            required
-            onChange={(e) => setStreetFrom(e.target.value)}
-          />
-          <label htmlFor="street-number-from">Street number</label>
-          <input
-            type="number"
-            id="street-number-from"
-            onChange={(e) => setStreetNumberFrom(e.target.value)}
-          />
-          <label htmlFor="country-from">Country</label>
-          <input
-            type="text"
-            id="country-from"
-            required
-            onChange={(e) => setCountryFrom(e.target.value)}
-          />
-        </fieldset>
-        <fieldset>
-          <legend>To</legend>
-          <label htmlFor="city-to">City</label>
-          <input
-            type="text"
-            id="city-to"
-            required
-            onChange={(e) => setCityTo(e.target.value)}
-          />
-          <label htmlFor="street-to">Street name</label>
-          <input
-            type="text"
-            id="street-to"
-            required
-            onChange={(e) => setStreetTo(e.target.value)}
-          />
-          <label htmlFor="street-number-to">Street number</label>
-          <input
-            type="number"
-            id="street-number-to"
-            onChange={(e) => setStreetNumberTo(e.target.value)}
-          />
-          <label htmlFor="country-to">Country</label>
-          <input
-            type="text"
-            id="country-to"
-            required
-            onChange={(e) => setCountryTo(e.target.value)}
-          />
-        </fieldset>
-        <button>Calculate trip cost</button>
+      <form onSubmit={handleSubmit} className={styles.form}>
+        <div className={styles.container}>
+          <fieldset className={styles.fieldset}>
+            <legend className={styles.form_legend}>From</legend>
+            <div className={styles.form_cell}>
+              <label htmlFor="city-from">City</label>
+              <input
+                type="text"
+                id="city-from"
+                required
+                onChange={(e) => setCityFrom(e.target.value)}
+              />
+            </div>
+            <div className={styles.form_cell}>
+              <label htmlFor="street-from">Street name</label>
+              <input
+                type="text"
+                id="street-from"
+                required
+                onChange={(e) => setStreetFrom(e.target.value)}
+              />
+            </div>
+            <div className={styles.form_cell}>
+              <label htmlFor="street-number-from">Street number</label>
+              <input
+                type="number"
+                id="street-number-from"
+                onChange={(e) => setStreetNumberFrom(e.target.value)}
+              />
+            </div>
+            <div className={styles.form_cell}>
+              <label htmlFor="country-from">Country</label>
+              <input
+                type="text"
+                id="country-from"
+                required
+                onChange={(e) => setCountryFrom(e.target.value)}
+              />
+            </div>
+          </fieldset>
+          <fieldset className={styles.fieldset}>
+            <legend className={styles.form_legend}>To</legend>
+            <div className={styles.form_cell}>
+              <label htmlFor="city-to">City</label>
+              <input
+                type="text"
+                id="city-to"
+                required
+                onChange={(e) => setCityTo(e.target.value)}
+              />
+            </div>
+            <div className={styles.form_cell}>
+              <label htmlFor="street-to">Street name</label>
+              <input
+                type="text"
+                id="street-to"
+                required
+                onChange={(e) => setStreetTo(e.target.value)}
+              />
+            </div>
+            <div className={styles.form_cell}>
+              <label htmlFor="street-number-to">Street number</label>
+              <input
+                type="number"
+                id="street-number-to"
+                onChange={(e) => setStreetNumberTo(e.target.value)}
+              />
+            </div>
+            <div className={styles.form_cell}>
+              <label htmlFor="country-to">Country</label>
+              <input
+                type="text"
+                id="country-to"
+                required
+                onChange={(e) => setCountryTo(e.target.value)}
+              />
+            </div>
+          </fieldset>
+        </div>
+        <button className={styles.form_button}>Calculate trip cost</button>
       </form>
       {tripHistory[0] && <TripsHistory tripHistory={tripHistory} />}
     </>
