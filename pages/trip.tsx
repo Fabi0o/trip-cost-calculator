@@ -5,6 +5,7 @@ import dynamic from "next/dynamic";
 import Map from "@/components/Map";
 import TripDetails from "@/components/TripDetails";
 import styles from "@/styles/Trip.module.css";
+import Adress from "@/types/adress";
 
 const GeneratePDF = dynamic(() => import("../components/GeneratePDF"), {
   ssr: false,
@@ -34,8 +35,24 @@ const Trip = () => {
   const router = useRouter();
 
   const goToHome = () => {
+    const tripStart: Adress = {
+      city: geoLocFrom.address.localName,
+      streetAdress: geoLocFrom.address.streetName,
+      streetNumber: geoLocFrom.address.streetNumber
+        ? Number(geoLocFrom.address.streetNumber)
+        : 0,
+      country: geoLocFrom.address.country,
+    };
+    const tripEnd: Adress = {
+      city: geoLocTo.address.localName,
+      streetAdress: geoLocTo.address.streetName,
+      streetNumber: geoLocTo.address.streetNumber
+        ? Number(geoLocTo.address.streetNumber)
+        : 0,
+      country: geoLocTo.address.country,
+    };
     setTripHistory([
-      { adressTo: adressTo, adressFrom: adressFrom },
+      { adressTo: tripEnd, adressFrom: tripStart },
       ...tripHistory,
     ]);
     setGeoLocFrom(null);
