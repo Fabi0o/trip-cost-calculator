@@ -3,6 +3,7 @@ import styles from "@/styles/Home.module.css";
 import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
 import Adress from "../types/adress";
+import { APIres, resultsItem } from "@/types/apires";
 import TripsHistory from "@/components/TripsHistory";
 
 export default function Home() {
@@ -35,8 +36,8 @@ export default function Home() {
       `https://api.tomtom.com/search/2/geocode/${adress.streetAdress} ${adress.streetNumber}, ${adress.city}.json?key=${process.env.API_CEY}`
     )
       .then((res) => res.json())
-      .then((data) => {
-        return Object.values(data.results[0].position).reverse();
+      .then((data: APIres | undefined) => {
+        return data.results[0];
       })
       .catch(() => {
         alert(`Wrong Adress of city:${adress.city}!`);
@@ -49,14 +50,14 @@ export default function Home() {
     setAdressTo({
       city: cityTo,
       streetAdress: streetTo,
-      streetNumber: streetNumberTo,
+      streetNumber: Number(streetNumberTo),
       country: countryTo,
     });
 
     setAdressFrom({
       city: cityFrom,
       streetAdress: streetFrom,
-      streetNumber: streetNumberFrom,
+      streetNumber: Number(streetNumberFrom),
       country: countryFrom,
     });
   };
@@ -64,14 +65,18 @@ export default function Home() {
   useEffect(() => {
     if (adressTo) {
       const setGeo = async () => {
-        setGeoLocTo(await fetchGeoLoc(adressTo));
+        await fetchGeoLoc(adressTo).then((res: resultsItem) => {
+          setGeoLocTo(res);
+        });
       };
       setGeo();
     }
 
     if (adressFrom) {
       const setGeo = async () => {
-        setGeoLocFrom(await fetchGeoLoc(adressFrom));
+        await fetchGeoLoc(adressFrom).then((res: resultsItem) => {
+          setGeoLocFrom(res);
+        });
       };
       setGeo();
     }

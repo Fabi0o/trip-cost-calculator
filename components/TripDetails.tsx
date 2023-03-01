@@ -2,7 +2,7 @@ import { Context } from "@/context/adresses";
 import { useContext, useEffect, useState } from "react";
 import styles from "@/styles/TripDetails.module.css";
 const TripDetails = () => {
-  const { geoJson, adressTo, adressFrom } = useContext(Context);
+  const { geoJson, geoLocFrom, geoLocTo } = useContext(Context);
   const [tripLength, setTripLength] = useState(0);
   const [costOfkm, setCostOfkm] = useState(2);
   const [tripCost, setTripCost] = useState(0);
@@ -25,16 +25,20 @@ const TripDetails = () => {
     <div className={styles.container}>
       <div className={styles.adress_container}>
         <h3 className={styles.heading}>From:</h3>
-        {`${adressFrom.city}, ${adressFrom.streetAdress}${
-          adressFrom.streetNumber ? ` ${adressFrom.streetNumber}` : ""
-        }, ${adressFrom.country}`}
+        {`${geoLocFrom.address.localName}, ${geoLocFrom.address.streetName}${
+          geoLocFrom.address.streetNumber
+            ? ` ${geoLocFrom.address.streetNumber}`
+            : ""
+        }, ${geoLocFrom.address.country}`}
       </div>
 
       <div className={styles.adress_container}>
         <h3 className={styles.heading}>To:</h3>
-        {`${adressTo.city}, ${adressTo.streetAdress}${
-          adressTo.streetNumber ? ` ${adressTo.streetNumber}` : ""
-        }, ${adressTo.country}`}
+        {`${geoLocTo.address.localName}, ${geoLocTo.address.streetName}${
+          geoLocTo.address.streetNumber
+            ? ` ${geoLocTo.address.streetNumber}`
+            : ""
+        }, ${geoLocTo.address.country}`}
       </div>
       <div>Trip length: {tripLength} km</div>
       <form>
