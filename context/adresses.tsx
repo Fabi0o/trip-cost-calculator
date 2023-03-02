@@ -1,6 +1,7 @@
-import { createContext, useState } from "react";
+import React, { createContext, useState } from "react";
 import Adress from "@/types/adress";
 import { resultsItem } from "@/types/apires";
+import TripHistory from "@/types/tripHistory";
 
 export type GlobalContext = {
   geoLocTo: resultsItem;
@@ -13,8 +14,8 @@ export type GlobalContext = {
   setAdressTo: React.Dispatch<React.SetStateAction<Adress>>;
   adressFrom: Adress;
   setAdressFrom: React.Dispatch<React.SetStateAction<Adress>>;
-  tripHistory;
-  setTripHistory;
+  tripHistory: TripHistory;
+  setTripHistory: React.Dispatch<React.SetStateAction<TripHistory>>;
 };
 
 export const Context = createContext<GlobalContext>(null);
@@ -25,7 +26,7 @@ export function AdressesProvider({ children }: any) {
   const [geoJson, setGeoJson] = useState();
   const [adressTo, setAdressTo] = useState<Adress>(null);
   const [adressFrom, setAdressFrom] = useState<Adress>(null);
-  const [tripHistory, setTripHistory] = useState([]);
+  const [tripHistory, setTripHistory] = useState<TripHistory>(null);
 
   return (
     <Context.Provider
