@@ -26,7 +26,7 @@ export function AdressesProvider({ children }: any) {
   const [geoJson, setGeoJson] = useState();
   const [adressTo, setAdressTo] = useState<Adress>(null);
   const [adressFrom, setAdressFrom] = useState<Adress>(null);
-  const [tripHistory, setTripHistory] = useState<TripHistory>(null);
+  const [tripHistory, setTripHistory] = useState<TripHistory>([]);
 
   return (
     <Context.Provider
