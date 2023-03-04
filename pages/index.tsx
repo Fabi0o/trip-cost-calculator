@@ -38,11 +38,13 @@ export default function Home() {
       .then((res) => res.json())
 
       .then((data: APIres | undefined) => {
+        if (!data.results[0])
+          throw new Error(`Wrong Address of city:${address.city}!`);
         return data.results[0];
       })
 
-      .catch(() => {
-        alert(`Wrong Address of city:${address.city}!`);
+      .catch((err) => {
+        alert(err);
       });
   };
 
