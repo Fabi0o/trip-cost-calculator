@@ -1,5 +1,5 @@
 import React, { createContext, useState } from "react";
-import Adress from "@/types/adress";
+import Address from "@/types/address";
 import { resultsItem } from "@/types/apires";
 import TripHistory from "@/types/tripHistory";
 
@@ -10,22 +10,22 @@ export type GlobalContext = {
   setGeoLocFrom: React.Dispatch<React.SetStateAction<resultsItem>>;
   geoJson;
   setGeoJson;
-  adressTo: Adress;
-  setAdressTo: React.Dispatch<React.SetStateAction<Adress>>;
-  adressFrom: Adress;
-  setAdressFrom: React.Dispatch<React.SetStateAction<Adress>>;
+  addressTo: Address;
+  setAddressTo: React.Dispatch<React.SetStateAction<Address>>;
+  addressFrom: Address;
+  setAddressFrom: React.Dispatch<React.SetStateAction<Address>>;
   tripHistory: TripHistory;
   setTripHistory: React.Dispatch<React.SetStateAction<TripHistory>>;
 };
 
 export const Context = createContext<GlobalContext>(null);
 
-export function AdressesProvider({ children }: any) {
+export function AddressesProvider({ children }: any) {
   const [geoLocTo, setGeoLocTo] = useState<resultsItem>();
   const [geoLocFrom, setGeoLocFrom] = useState<resultsItem>();
   const [geoJson, setGeoJson] = useState();
-  const [adressTo, setAdressTo] = useState<Adress>(null);
-  const [adressFrom, setAdressFrom] = useState<Adress>(null);
+  const [addressTo, setAddressTo] = useState<Address>(null);
+  const [addressFrom, setAddressFrom] = useState<Address>(null);
   const [tripHistory, setTripHistory] = useState<TripHistory>([]);
 
   return (
@@ -37,10 +37,10 @@ export function AdressesProvider({ children }: any) {
         setGeoLocFrom,
         geoJson,
         setGeoJson,
-        adressTo,
-        setAdressTo,
-        adressFrom,
-        setAdressFrom,
+        addressTo,
+        setAddressTo,
+        addressFrom,
+        setAddressFrom,
         tripHistory,
         setTripHistory,
       }}

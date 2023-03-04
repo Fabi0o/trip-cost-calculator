@@ -14,11 +14,11 @@ const TripsHistory = ({ tripHistory }: any) => {
               <h4 className={styles.trip_heading}>From:</h4>
 
               <div>
-                {`${trip.adressFrom.city}, ${trip.adressFrom.streetAdress}${
-                  trip.adressFrom.streetNumber
-                    ? ` ${trip.adressFrom.streetNumber}`
+                {`${trip.addressFrom.city}, ${trip.addressFrom.streetAddress}${
+                  trip.addressFrom.streetNumber
+                    ? ` ${trip.addressFrom.streetNumber}`
                     : ""
-                }, ${trip.adressFrom.country}`}
+                }, ${trip.addressFrom.country}`}
               </div>
             </div>
 
@@ -26,11 +26,11 @@ const TripsHistory = ({ tripHistory }: any) => {
               <h4 className={styles.trip_heading}>To:</h4>
 
               <div>
-                {`${trip.adressTo.city}, ${trip.adressTo.streetAdress}${
-                  trip.adressTo.streetNumber
-                    ? ` ${trip.adressTo.streetNumber}`
+                {`${trip.addressTo.city}, ${trip.addressTo.streetAddress}${
+                  trip.addressTo.streetNumber
+                    ? ` ${trip.addressTo.streetNumber}`
                     : ""
-                }, ${trip.adressTo.country}`}
+                }, ${trip.addressTo.country}`}
               </div>
             </div>
           </div>

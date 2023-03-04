@@ -1,4 +1,4 @@
-import { Context } from "@/context/adresses";
+import { Context } from "@/context/addresses";
 import { useContext, useEffect, useState } from "react";
 import styles from "@/styles/TripDetails.module.css";
 const TripDetails = () => {

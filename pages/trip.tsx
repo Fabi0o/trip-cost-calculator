@@ -1,11 +1,11 @@
-import { Context } from "@/context/adresses";
+import { Context } from "@/context/addresses";
 import { useContext, useEffect, useRef } from "react";
 import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
 import Map from "@/components/Map";
 import TripDetails from "@/components/TripDetails";
 import styles from "@/styles/Trip.module.css";
-import Adress from "@/types/adress";
+import Address from "@/types/address";
 
 const GeneratePDF = dynamic(() => import("../components/GeneratePDF"), {
   ssr: false,
@@ -19,10 +19,10 @@ const Trip = () => {
     geoLocFrom,
     setGeoLocTo,
     geoLocTo,
-    setAdressTo,
-    adressTo,
-    setAdressFrom,
-    adressFrom,
+    setAddressTo,
+    addressTo,
+    setAddressFrom,
+    addressFrom,
     tripHistory,
     setTripHistory,
   } = useContext(Context);
@@ -36,7 +36,7 @@ const Trip = () => {
   const router = useRouter();
 
   const goToHome = () => {
-    const tripStart = new Adress(
+    const tripStart = new Address(
       geoLocFrom.address.localName,
       geoLocFrom.address.streetName,
       geoLocFrom.address.country,
@@ -45,7 +45,7 @@ const Trip = () => {
         : 0
     );
 
-    const tripEnd = new Adress(
+    const tripEnd = new Address(
       geoLocTo.address.localName,
       geoLocTo.address.streetName,
       geoLocTo.address.country,
@@ -53,14 +53,14 @@ const Trip = () => {
     );
 
     setTripHistory([
-      { adressTo: tripEnd, adressFrom: tripStart },
+      { addressTo: tripEnd, addressFrom: tripStart },
       ...tripHistory,
     ]);
 
     setGeoLocFrom(null);
     setGeoLocTo(null);
-    setAdressTo(null);
-    setAdressFrom(null);
+    setAddressTo(null);
+    setAddressFrom(null);
     setGeoJson(null);
 
     router.push("/");

@@ -1,4 +1,4 @@
-import { Context } from "@/context/adresses";
+import { Context } from "@/context/addresses";
 import { useContext, useEffect, useRef, useState } from "react";
 import styles from "../styles/Map.module.css";
 const Map = () => {

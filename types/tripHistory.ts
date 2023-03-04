@@ -1,8 +1,8 @@
-import Adress from "./adress";
+import Address from "./address";
 
 type TripHistory = Array<{
-  adressTo: Adress;
-  adressFrom: Adress;
+  addressTo: Address;
+  addressFrom: Address;
 }>;
 
 export default TripHistory;

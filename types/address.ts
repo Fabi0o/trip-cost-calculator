@@ -1,17 +1,17 @@
-export default class Adress {
+export default class Address {
   city: string;
-  streetAdress: string;
+  streetAddress: string;
   streetNumber?: number;
   country: string;
 
   constructor(
     city: string,
-    streetAdress: string,
+    streetAddress: string,
     country: string,
     streetNumber?: number
   ) {
     this.city = city;
-    this.streetAdress = streetAdress;
+    this.streetAddress = streetAddress;
     this.country = country;
     this.streetNumber = streetNumber;
   }

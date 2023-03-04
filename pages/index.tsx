@@ -1,8 +1,8 @@
-import { Context } from "@/context/adresses";
+import { Context } from "@/context/addresses";
 import styles from "@/styles/Home.module.css";
 import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
-import Adress from "../types/adress";
+import Address from "../types/address";
 import { APIres, resultsItem } from "@/types/apires";
 import TripsHistory from "@/components/TripsHistory";
 
@@ -14,10 +14,10 @@ export default function Home() {
     setGeoLocTo,
     geoLocFrom,
     setGeoLocFrom,
-    adressTo,
-    setAdressTo,
-    adressFrom,
-    setAdressFrom,
+    addressTo,
+    setAddressTo,
+    addressFrom,
+    setAddressFrom,
     tripHistory,
   } = useContext(Context);
 
@@ -31,9 +31,9 @@ export default function Home() {
   const [streetNumberTo, setStreetNumberTo] = useState("");
   const [countryTo, setCountryTo] = useState("");
 
-  const fetchGeoLoc = (adress: Adress) => {
+  const fetchGeoLoc = (address: Address) => {
     return fetch(
-      `https://api.tomtom.com/search/2/geocode/${adress.streetAdress} ${adress.streetNumber}, ${adress.city}.json?key=${process.env.API_CEY}`
+      `https://api.tomtom.com/search/2/geocode/${address.streetAddress} ${address.streetNumber}, ${address.city}.json?key=${process.env.API_CEY}`
     )
       .then((res) => res.json())
 
@@ -42,26 +42,26 @@ export default function Home() {
       })
 
       .catch(() => {
-        alert(`Wrong Adress of city:${adress.city}!`);
+        alert(`Wrong Address of city:${address.city}!`);
       });
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    setAdressTo(
-      new Adress(cityTo, streetTo, countryTo, Number(streetNumberTo))
+    setAddressTo(
+      new Address(cityTo, streetTo, countryTo, Number(streetNumberTo))
     );
 
-    setAdressFrom(
-      new Adress(cityFrom, streetFrom, countryFrom, Number(streetNumberFrom))
+    setAddressFrom(
+      new Address(cityFrom, streetFrom, countryFrom, Number(streetNumberFrom))
     );
   };
 
   useEffect(() => {
-    if (adressTo) {
+    if (addressTo) {
       const setGeo = async () => {
-        await fetchGeoLoc(adressTo).then((res: resultsItem) => {
+        await fetchGeoLoc(addressTo).then((res: resultsItem) => {
           setGeoLocTo(res);
         });
       };
@@ -69,16 +69,16 @@ export default function Home() {
       setGeo();
     }
 
-    if (adressFrom) {
+    if (addressFrom) {
       const setGeo = async () => {
-        await fetchGeoLoc(adressFrom).then((res: resultsItem) => {
+        await fetchGeoLoc(addressFrom).then((res: resultsItem) => {
           setGeoLocFrom(res);
         });
       };
 
       setGeo();
     }
-  }, [adressTo, adressFrom]);
+  }, [addressTo, addressFrom]);
 
   useEffect(() => {
     if (geoLocTo && geoLocFrom) {
