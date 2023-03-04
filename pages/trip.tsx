@@ -35,31 +35,33 @@ const Trip = () => {
   const router = useRouter();
 
   const goToHome = () => {
-    const tripStart: Adress = {
-      city: geoLocFrom.address.localName,
-      streetAdress: geoLocFrom.address.streetName,
-      streetNumber: geoLocFrom.address.streetNumber
+    const tripStart = new Adress(
+      geoLocFrom.address.localName,
+      geoLocFrom.address.streetName,
+      geoLocFrom.address.country,
+      geoLocFrom.address.streetNumber
         ? Number(geoLocFrom.address.streetNumber)
-        : 0,
-      country: geoLocFrom.address.country,
-    };
-    const tripEnd: Adress = {
-      city: geoLocTo.address.localName,
-      streetAdress: geoLocTo.address.streetName,
-      streetNumber: geoLocTo.address.streetNumber
-        ? Number(geoLocTo.address.streetNumber)
-        : 0,
-      country: geoLocTo.address.country,
-    };
+        : 0
+    );
+
+    const tripEnd = new Adress(
+      geoLocTo.address.localName,
+      geoLocTo.address.streetName,
+      geoLocTo.address.country,
+      geoLocTo.address.streetNumber ? Number(geoLocTo.address.streetNumber) : 0
+    );
+
     setTripHistory([
       { adressTo: tripEnd, adressFrom: tripStart },
       ...tripHistory,
     ]);
+
     setGeoLocFrom(null);
     setGeoLocTo(null);
     setAdressTo(null);
     setAdressFrom(null);
     setGeoJson(null);
+
     router.push("/");
   };
 

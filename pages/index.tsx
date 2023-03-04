@@ -36,30 +36,26 @@ export default function Home() {
       `https://api.tomtom.com/search/2/geocode/${adress.streetAdress} ${adress.streetNumber}, ${adress.city}.json?key=${process.env.API_CEY}`
     )
       .then((res) => res.json())
+
       .then((data: APIres | undefined) => {
         return data.results[0];
       })
+
       .catch(() => {
         alert(`Wrong Adress of city:${adress.city}!`);
       });
   };
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    setAdressTo({
-      city: cityTo,
-      streetAdress: streetTo,
-      streetNumber: Number(streetNumberTo),
-      country: countryTo,
-    });
+    setAdressTo(
+      new Adress(cityTo, streetTo, countryTo, Number(streetNumberTo))
+    );
 
-    setAdressFrom({
-      city: cityFrom,
-      streetAdress: streetFrom,
-      streetNumber: Number(streetNumberFrom),
-      country: countryFrom,
-    });
+    setAdressFrom(
+      new Adress(cityFrom, streetFrom, countryFrom, Number(streetNumberFrom))
+    );
   };
 
   useEffect(() => {
@@ -69,6 +65,7 @@ export default function Home() {
           setGeoLocTo(res);
         });
       };
+
       setGeo();
     }
 
@@ -78,6 +75,7 @@ export default function Home() {
           setGeoLocFrom(res);
         });
       };
+
       setGeo();
     }
   }, [adressTo, adressFrom]);
