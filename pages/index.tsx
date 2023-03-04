@@ -92,6 +92,7 @@ export default function Home() {
         <div className={styles.container}>
           <fieldset className={styles.fieldset}>
             <legend className={styles.form_legend}>From</legend>
+
             <div className={styles.form_cell}>
               <label htmlFor="city-from">City</label>
               <input
@@ -101,6 +102,7 @@ export default function Home() {
                 onChange={(e) => setCityFrom(e.target.value)}
               />
             </div>
+
             <div className={styles.form_cell}>
               <label htmlFor="street-from">Street name</label>
               <input
@@ -110,6 +112,7 @@ export default function Home() {
                 onChange={(e) => setStreetFrom(e.target.value)}
               />
             </div>
+
             <div className={styles.form_cell}>
               <label htmlFor="street-number-from">Street number</label>
               <input
@@ -118,6 +121,7 @@ export default function Home() {
                 onChange={(e) => setStreetNumberFrom(e.target.value)}
               />
             </div>
+
             <div className={styles.form_cell}>
               <label htmlFor="country-from">Country</label>
               <input
@@ -128,6 +132,7 @@ export default function Home() {
               />
             </div>
           </fieldset>
+
           <fieldset className={styles.fieldset}>
             <legend className={styles.form_legend}>To</legend>
             <div className={styles.form_cell}>
@@ -139,6 +144,7 @@ export default function Home() {
                 onChange={(e) => setCityTo(e.target.value)}
               />
             </div>
+
             <div className={styles.form_cell}>
               <label htmlFor="street-to">Street name</label>
               <input
@@ -148,6 +154,7 @@ export default function Home() {
                 onChange={(e) => setStreetTo(e.target.value)}
               />
             </div>
+
             <div className={styles.form_cell}>
               <label htmlFor="street-number-to">Street number</label>
               <input
@@ -156,6 +163,7 @@ export default function Home() {
                 onChange={(e) => setStreetNumberTo(e.target.value)}
               />
             </div>
+
             <div className={styles.form_cell}>
               <label htmlFor="country-to">Country</label>
               <input
@@ -167,8 +175,10 @@ export default function Home() {
             </div>
           </fieldset>
         </div>
+
         <button className={styles.form_button}>Calculate trip cost</button>
       </form>
+
       {tripHistory[0] && <TripsHistory tripHistory={tripHistory} />}
     </>
   );

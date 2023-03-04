@@ -10,6 +10,7 @@ import Adress from "@/types/adress";
 const GeneratePDF = dynamic(() => import("../components/GeneratePDF"), {
   ssr: false,
 });
+
 const Trip = () => {
   const {
     geoJson,
@@ -68,7 +69,9 @@ const Trip = () => {
   return (
     <>
       <div ref={ref}>{geoJson && <TripDetails />}</div>
+
       {geoLocFrom && <Map />}
+
       <button onClick={goToHome} className={styles.button}>
         Back to homepage!
       </button>

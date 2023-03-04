@@ -9,6 +9,7 @@ const TripDetails = () => {
 
   useEffect(() => {
     if (!geoJson) return;
+
     setTripLength(
       Math.floor(geoJson.features[0].properties.summary.lengthInMeters / 100) /
         10
@@ -18,6 +19,7 @@ const TripDetails = () => {
   useEffect(() => {
     const fullDaysCost = Math.floor(tripLength / 800) * 1000;
     const kmCost = tripLength * costOfkm;
+
     setTripCost(Math.floor((kmCost * 1.1 + fullDaysCost) * 100) / 100);
   }, [costOfkm, tripLength]);
 
@@ -25,6 +27,7 @@ const TripDetails = () => {
     <div className={styles.container}>
       <div className={styles.adress_container}>
         <h3 className={styles.heading}>From:</h3>
+
         {`${geoLocFrom.address.localName}, ${geoLocFrom.address.streetName}${
           geoLocFrom.address.streetNumber
             ? ` ${geoLocFrom.address.streetNumber}`
@@ -34,13 +37,16 @@ const TripDetails = () => {
 
       <div className={styles.adress_container}>
         <h3 className={styles.heading}>To:</h3>
+
         {`${geoLocTo.address.localName}, ${geoLocTo.address.streetName}${
           geoLocTo.address.streetNumber
             ? ` ${geoLocTo.address.streetNumber}`
             : ""
         }, ${geoLocTo.address.country}`}
       </div>
+
       <div>Trip length: {tripLength} km</div>
+
       <form>
         <label htmlFor="cost">Cost of 1km </label>
         <input
@@ -55,6 +61,7 @@ const TripDetails = () => {
           className={styles.input}
         />
       </form>
+
       <div>Total cost of the trip:{tripCost}$</div>
     </div>
   );

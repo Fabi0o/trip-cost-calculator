@@ -17,14 +17,17 @@ const Map = () => {
         center: [geoLocFrom.position.lon, geoLocFrom.position.lat],
         zoom: 9,
       });
+
       setMap(map);
 
       new tt.Marker()
         .setLngLat([geoLocTo.position.lon, geoLocTo.position.lat])
         .addTo(map);
+
       new tt.Marker()
         .setLngLat([geoLocFrom.position.lon, geoLocFrom.position.lat])
         .addTo(map);
+
       map.on("load", () => {
         drawRoute(map);
       });
@@ -40,6 +43,7 @@ const Map = () => {
             geoLocFrom.position
           ).reverse()}:${Object.values(geoLocTo.position).reverse()}`,
         })
+
         .then((res) => {
           setGeoJson(res.toGeoJson());
 

@@ -13,12 +13,9 @@ const GeneratePDF: React.FC<props> = ({ html, className }) => {
     doc.save();
   };
   return (
-    <>
-      {" "}
-      <button onClick={generateImage} className={className}>
-        Get PDF!
-      </button>{" "}
-    </>
+    <button onClick={generateImage} className={className}>
+      Get PDF!
+    </button>
   );
 };
 
